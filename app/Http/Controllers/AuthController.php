@@ -28,7 +28,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
-        };
+        }
+        ;
 
         return back()->withErrors([
             'auth' => 'Invalid credentials'
@@ -62,8 +63,16 @@ class AuthController extends Controller
         return redirect(route('dashboard', absolute: false));
     }
 
-    public function logout() {
+    public function logout(Request $request)
+    {
 
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
-    
+
 }
