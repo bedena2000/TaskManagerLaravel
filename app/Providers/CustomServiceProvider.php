@@ -8,7 +8,7 @@ class CustomServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        
+
     }
 
     /**
@@ -16,6 +16,6 @@ class CustomServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        
     }
 }

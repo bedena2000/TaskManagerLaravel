@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome</title>
+    <title>NoteTracker</title>
 </head>
 <body>
-
-    <p>Welcome</p>
-
-
+    <div>
+        <h1>Welcome to NoteTracker</h1>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Register</a>
+    </div>
 </body>
 </html>

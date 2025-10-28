@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProjectsController;
-use App\Http\Controllers\TasksController;
-use App\Models\User;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 
 // Authenticaton
 
@@ -19,25 +15,18 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-
-// Projects
-Route::prefix('projects')->name('projects')->controller(ProjectsController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
-    Route::get('/details/{id}', 'details')->name('details');
-    Route::get('/delete/{id}', 'delete')->name('delete');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Tasks
-Route::prefix('tasks')->name('tasks')->controller(TasksController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
-    Route::get('/show', 'details')->name('details');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Dashboard
-Route::prefix('dashboard')->name('dashboard')->controller(DashboardController::class)->group(function() {
-    Route::get('/', 'index')->name('index');
-});
+require __DIR__.'/auth.php';
